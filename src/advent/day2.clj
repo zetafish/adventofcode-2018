@@ -34,21 +34,24 @@
 
 (defn diff
   [a b]
-  (->> (map not= a b)
-       (filter true?)
+  (->> (map vector a b)
+       (filter (partial apply not=))
        count))
 
 (defn similar
   [a b]
-  (->> (map #(when (= %1 %2) %1) a b)
-       (keep identity)))
+  (->> (map vector a b)
+       (filter (partial apply =))
+       (map first)))
 
 (defn part2
   [input]
-  (let [v (first (for [a input b input
-                       :when (= 1 (diff a b))]
-                   [a b]))]
-    (str/join (similar (first v) (second v)))))
+  (->> (for [a input b input
+             :when (= 1 (diff a b))]
+         [a b])
+       first
+       (apply similar)
+       str/join))
 
 (part1 x)
 (part1 input)
