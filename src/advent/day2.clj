@@ -26,8 +26,7 @@
 (defn part1
   [input]
   (let [m (->> input
-               (map #(-> % frequencies vals frequencies))
-               (mapcat keys)
+               (mapcat (comp keys frequencies vals frequencies))
                frequencies)]
     (* (m 2 0)
        (m 3 0))))
@@ -51,7 +50,7 @@
          [a b])
        first
        (apply similar)
-       str/join))
+       (apply str)))
 
 (part1 x)
 (part1 input)
