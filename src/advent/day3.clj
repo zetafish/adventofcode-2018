@@ -68,4 +68,5 @@
        (reduce g {:tainted #{} :pure #{}})
        :pure))
 
+(part1 input)
 (part2 input)
